@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichDomainNET", "RichDomainNET\RichDomainNET.csproj", "{45FC168A-4CC0-4C16-857D-A59B7AF9821D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{C73445ED-C383-47A9-B71D-53883D7EE3FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45FC168A-4CC0-4C16-857D-A59B7AF9821D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45FC168A-4CC0-4C16-857D-A59B7AF9821D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45FC168A-4CC0-4C16-857D-A59B7AF9821D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45FC168A-4CC0-4C16-857D-A59B7AF9821D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C73445ED-C383-47A9-B71D-53883D7EE3FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C73445ED-C383-47A9-B71D-53883D7EE3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C73445ED-C383-47A9-B71D-53883D7EE3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C73445ED-C383-47A9-B71D-53883D7EE3FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6650860A-98BF-4A65-A828-570AA90D23D1}
+	EndGlobalSection
+EndGlobal
