@@ -3,6 +3,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+using RichDomainNET.EntityFrameworkCore.Interceptors;
+
 using System.Diagnostics.Metrics;
 
 namespace Demo.Web.Data
@@ -18,6 +20,14 @@ namespace Demo.Web.Data
         public ApplicationDbContext()
         {
             
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.AddInterceptors(new MaterializationInterceptor());
+            optionsBuilder.AddInterceptors(new CreateEntityInterceptor());
+
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
