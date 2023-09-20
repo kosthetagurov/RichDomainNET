@@ -11,5 +11,11 @@ namespace RichDomainNET.EntityFrameworkCore.DependencyInjection
             optionsBuilder.AddInterceptors(new MaterializationInterceptor());
             return optionsBuilder;
         }
+
+        public static DbContextOptionsBuilder AddCreateEntityInterceptor(this DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.AddInterceptors(new CreateEntityInterceptor());
+            return optionsBuilder;
+        }
     }
 }

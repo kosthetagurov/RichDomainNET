@@ -37,6 +37,7 @@ namespace Demo.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {            
             optionsBuilder.AddMateriazationInterceptor();
+            optionsBuilder.AddCreateEntityInterceptor();
             base.OnConfiguring(optionsBuilder);
         }
 

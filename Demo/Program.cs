@@ -16,7 +16,7 @@ namespace Demo
             context.Database.Migrate();
 
             EfCoreDemo(context);
-            DapperDemo();
+            //DapperDemo();
 
             Console.ReadKey();
         }
@@ -24,6 +24,15 @@ namespace Demo
         static void EfCoreDemo(ApplicationDbContext context)
         {
             Console.WriteLine("Ef Core Demo.");
+
+            var chris = new Person()
+            {
+                Age = 21,
+                Name = "Chris"                
+            };
+
+            context.People.Add(chris);
+            context.SaveChanges();
 
             var people = context.People.ToList();
 
