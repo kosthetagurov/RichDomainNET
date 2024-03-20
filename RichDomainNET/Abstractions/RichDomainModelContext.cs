@@ -1,12 +1,17 @@
-﻿using System.Data;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Text.Json.Serialization;
 
 namespace RichDomainNET.Abstractions
 {
+    [NotMapped]    
     public sealed class RichDomainModelContext
     {
+        [JsonIgnore]
         private readonly Lazy<IDbConnection> _dbConnection;
+        [JsonIgnore]
         public IDbConnection Connection => _dbConnection.Value;
 
         public RichDomainModelContext(IDbConnection connection)

@@ -11,14 +11,14 @@ namespace RichDomainNET.EntityFrameworkCore
             return func(options);
         }
 
-        public virtual TContext CreateDbContext(Func<TContext> func)
+        public virtual TContext CreateDbContext(Func<TContext> factoryMethod)
         {
-            return func();
+            return factoryMethod();
         }
 
-        public virtual TContext CreateDbContext(Func<string, TContext> func)
+        public virtual TContext CreateDbContext(Func<string, TContext> factoryMethod)
         {
-            return func(Context.Connection.ConnectionString);
+            return factoryMethod(Context.Connection.ConnectionString);
         }
 
         public virtual TContext CreateDbContext()

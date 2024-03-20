@@ -1,7 +1,7 @@
 ﻿using Demo.Data;
+using Demo.Data.Collections;
+
 using Microsoft.EntityFrameworkCore;
-using RichDomainNET.Dapper;
-using System.Data.SqlClient;
 
 namespace Demo
 {
@@ -13,69 +13,55 @@ namespace Demo
             Console.WriteLine();
 
             using var context = new ApplicationDbContext();
-            context.Database.Migrate();
+            context.Database.Migrate();            
 
             EfCoreDemo(context);
-            //DapperDemo();
 
             Console.ReadKey();
         }
 
         static void EfCoreDemo(ApplicationDbContext context)
         {
-            Console.WriteLine("Ef Core Demo.");
+            var people = new People(context);
+            people.RemoveAll();
 
-            var chris = new Person()
-            {
-                Age = 21,
-                Name = "Chris"                
-            };
+            Console.WriteLine("People count is " + people.Count());
 
-            context.People.Add(chris);
-            context.SaveChanges();
+            people.Insert(
+                new Person()
+                {
+                    Name = "Harry",
+                    Age = 16
+                },
+                new Person()
+                {
+                    Name = "Jane",
+                    Age = 21
+                },
+                new Person()
+                {
+                    Name = "John",
+                    Age = 25
+                }
+             );
 
-            var people = context.People.ToList();
+            Console.WriteLine("People count is " + people.Count());
 
             foreach (var person in people)
             {
-                Console.WriteLine($"Name: {person.Name}, Age: {person.Age}");
-
-                person.Age += 10;
-                person.Name += " (renamed)";
-                person.Update();
+                Console.WriteLine($"{person.Name}, {person.Age}");
             }
+            Console.WriteLine(new string('-', 10));
 
-            var modifiedPeople = context.People.ToList();
-            foreach (var person in modifiedPeople)
+            var adultPeople = people.GetAdult();            
+            foreach (var person in adultPeople)
             {
-                Console.WriteLine($"Name: {person.Name}, Age: {person.Age}");
+                Console.WriteLine($"{person.Name}, {person.Age}");
             }
+            Console.WriteLine(new string('-', 10));
 
-            Console.WriteLine();
-        }
-
-        static void DapperDemo()
-        {
-            Console.WriteLine("Dapper Demo.");
-
-            using var connection = new SqlConnection(Constants.ConnectionString);
-            var sql = "select * from Products";
-
-            var products = connection.RichQuery<Product>(sql);
-            foreach (var item in products)
-            {
-                Console.WriteLine($"Name: {item.Name}, Price: {item.Price}");
-                item.Name += " (renamed)";
-                item.Update();
-            }
-
-            var modifiedProducts = connection.RichQuery<Product>(sql);
-            foreach (var item in modifiedProducts)
-            {
-                Console.WriteLine($"Name: {item.Name}, Price: {item.Price}");                
-            }
-
-            Console.WriteLine();
+            Console.WriteLine(people.ToJson());
+            Console.WriteLine(new string('-', 10));
         }
     }
 }
