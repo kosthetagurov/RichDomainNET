@@ -10,29 +10,14 @@ namespace Demo.Data
             : base(GetOptions(Constants.ConnectionString))
         { }
 
+        public ApplicationDbContext(string connectionString)
+            : base(GetOptions(connectionString))
+        { }
+
         public DbSet<Person> People { get; set; }
         public DbSet<Product> Products { get; set; }        
 
-        #region 
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder
-                .Entity<Person>()
-                .HasData(
-                    new Person { Id = new Random().Next(0, 9999), Age = 21, Name = "John" },
-                    new Person { Id = new Random().Next(0, 9999), Age = 24, Name = "Kate" }
-                 );
-
-            modelBuilder
-                .Entity<Product>()
-                .HasData(
-                    new Product { Id = Guid.NewGuid(), Name = "Table", Price = 1000.0 },
-                    new Product { Id = Guid.NewGuid(), Name = "Bed", Price = 1500.0 }
-                );
-
-            base.OnModelCreating(modelBuilder);
-        }
+        #region         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {            

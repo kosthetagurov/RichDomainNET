@@ -10,27 +10,11 @@ namespace RichDomainNET.Abstractions
     public sealed class RichDomainModelContext
     {
         [JsonIgnore]
-        private readonly Lazy<IDbConnection> _dbConnection;
-        [JsonIgnore]
-        public IDbConnection Connection => _dbConnection.Value;
+        public string ConnectionString { get; set; }
 
-        public RichDomainModelContext(IDbConnection connection)
-        {
-            var connectionString = connection.ConnectionString;
-
-            _dbConnection = new Lazy<IDbConnection>(() =>
-            {
-                if (connection != null && connection.State == ConnectionState.Closed)
-                {
-                    connection.ConnectionString = connectionString;
-                    connection.Open();
-                    return connection;
-                }
-                else
-                {
-                    throw new Exception("RichDomainModelContext is invalid");
-                }                
-            });
+        public RichDomainModelContext(string connectionString)
+        {            
+            ConnectionString = connectionString;
         }
     }
 }

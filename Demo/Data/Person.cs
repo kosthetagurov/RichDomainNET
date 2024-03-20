@@ -11,12 +11,12 @@ namespace Demo.Data
         public int Age { get; set; }
         public string Name { get; set; }
 
-        [Obsolete]
         public void Update()
         {
-            using var context = CreateDbContext();
-            context.People.Update(this);
-            context.SaveChanges();
+            using var context = CreateDbContext();            
+
+            /*context.People.Update(this);
+            context.SaveChanges();*/
         }
 
         // ... Implement your domain logic inside domain object

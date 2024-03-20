@@ -10,7 +10,7 @@ namespace RichDomainNET.Abstractions
 
         internal void SetContext(IDbConnection connection)
         {
-            Context = new RichDomainModelContext(connection);
+            Context = new RichDomainModelContext(connection.ConnectionString);
         }
     }
 }
