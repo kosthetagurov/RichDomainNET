@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Demo.Data.Collections
 {
-    public class People : EfRichDomainModelCollection<ApplicationDbContext, Person>
+    public class People : EfRichDomainModelRepository<ApplicationDbContext, Person>
     {
         public People(ApplicationDbContext dbContext) 
             : base(dbContext) { }        

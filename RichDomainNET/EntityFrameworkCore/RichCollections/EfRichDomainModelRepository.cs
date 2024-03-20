@@ -13,11 +13,11 @@ using System.Xml.Linq;
 
 namespace RichDomainNET.EntityFrameworkCore.RichCollections
 {
-    public abstract class EfRichDomainModelCollection<TContext, TModel> : IEnumerable<TModel>, IEnumerator<TModel>
+    public abstract class EfRichDomainModelRepository<TContext, TModel> : IEnumerable<TModel>, IEnumerator<TModel>
         where TContext : DbContext, new()
         where TModel : EfRichDomainModel<TContext>
     {       
-        public EfRichDomainModelCollection(TContext dbContext, Func<TModel, bool> filter = null)
+        public EfRichDomainModelRepository(TContext dbContext, Func<TModel, bool> filter = null)
         {
             Context = dbContext;
 
@@ -72,9 +72,16 @@ namespace RichDomainNET.EntityFrameworkCore.RichCollections
             });
         }
 
-        public virtual void Remove(TModel model)
+        public virtual void Update(TModel model)
         {
-            Context.Set<TModel>().Remove(model);
+            var set = Context.Set<TModel>();
+            set.Update(model);
+            Context.SaveChanges();
+        }
+
+        public virtual void Remove(params TModel[] models)
+        {
+            Context.Set<TModel>().RemoveRange(models);
             Context.SaveChanges();
 
             elements = new Lazy<TModel[]>(() =>

@@ -23,7 +23,7 @@ namespace Demo
         static void EfCoreDemo(ApplicationDbContext context)
         {
             var people = new People(context);
-            // people.RemoveAll();
+            people.RemoveAll();
 
             Console.WriteLine("People count is " + people.Count());
 
@@ -55,7 +55,7 @@ namespace Demo
             foreach (var person in people)
             {
                 person.Name += " (renamed)";
-                person.Update();
+                people.Update(person);
                 Console.WriteLine($"{person.Name}, {person.Age}");
             }
             Console.WriteLine(new string('-', 10));
@@ -67,8 +67,14 @@ namespace Demo
             }
             Console.WriteLine(new string('-', 10));
 
-            Console.WriteLine(people.ToJson());
-            Console.WriteLine(new string('-', 10));
+            people.Remove(adultPeople.ToArray());
+            
+            foreach (var person in people)
+            {
+                person.Name += " (renamed)";
+                people.Update(person);
+                Console.WriteLine($"{person.Name}, {person.Age}");
+            }                        
         }
     }
 }

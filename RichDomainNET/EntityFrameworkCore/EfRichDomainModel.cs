@@ -18,7 +18,7 @@ namespace RichDomainNET.EntityFrameworkCore
 
         public virtual TContext CreateDbContext(Func<string, TContext> factoryMethod)
         {
-            return factoryMethod(Context.ConnectionString);
+            return factoryMethod(RichDomainModelContext.ConnectionString);
         }
 
         public virtual TContext CreateDbContext()

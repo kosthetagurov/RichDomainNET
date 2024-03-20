@@ -2,6 +2,6 @@
 {
     internal interface IRichDomainModel
     {
-        RichDomainModelContext Context { get; }
+        RichDomainModelContext RichDomainModelContext { get; }
     }
 }

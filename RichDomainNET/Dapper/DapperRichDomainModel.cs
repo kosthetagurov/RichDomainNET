@@ -8,7 +8,7 @@ namespace RichDomainNET.Dapper
     {
         public IDbConnection GetConnection(Func<string, IDbConnection> func)
         {
-            return func(Context.ConnectionString);
+            return func(RichDomainModelContext.ConnectionString);
         }
     }
 }
