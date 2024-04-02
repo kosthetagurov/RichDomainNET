@@ -15,7 +15,7 @@ namespace RichDomainNET.EntityFrameworkCore.RichCollections
 {
     public abstract class EfRichDomainModelRepository<TContext, TModel> : IEnumerable<TModel>, IEnumerator<TModel>
         where TContext : DbContext, new()
-        where TModel : EfRichDomainModel<TContext>
+        where TModel : RichDomainModel
     {       
         public EfRichDomainModelRepository(TContext dbContext, Func<TModel, bool> filter = null)
         {
@@ -49,17 +49,6 @@ namespace RichDomainNET.EntityFrameworkCore.RichCollections
         #endregion
 
         #region Public methods
-
-        public virtual void Insert(TModel model)
-        {
-            Context.Set<TModel>().Add(model);
-            Context.SaveChanges();
-
-            elements = new Lazy<TModel[]>(() =>
-            {
-                return GetData();
-            });
-        }
 
         public virtual void Insert(params TModel[] models)
         {

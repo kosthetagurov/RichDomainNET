@@ -25,56 +25,45 @@ namespace Demo
             var people = new People(context);
             people.RemoveAll();
 
-            Console.WriteLine("People count is " + people.Count());
+            var products = new Products(context);
+            products.RemoveAll();
 
-            people.Insert(
-                new Person()
-                {
-                    Name = "Harry",
-                    Age = 16
-                },
-                new Person()
-                {
-                    Name = "Jane",
-                    Age = 21
-                },
-                new Person()
+            var orders = new Orders(context);
+            orders.RemoveAll();            
+
+            people.Insert(                
+                new Person
                 {
                     Name = "John",
                     Age = 25
                 }
             );
-            Console.WriteLine("People count is " + people.Count());
 
-            foreach (var person in people)
-            {
-                Console.WriteLine($"{person.Name}, {person.Age}");
-            }
-            Console.WriteLine(new string('-', 10));
+            products.Insert(
+                new Product
+                {
+                    Name = "Lays",
+                    Price = 100                    
+                },
+                new Product
+                {
+                    Name = "M&M`s",
+                    Price = 85
+                }
+            );
 
-            foreach (var person in people)
-            {
-                person.Name += " (renamed)";
-                people.Update(person);
-                Console.WriteLine($"{person.Name}, {person.Age}");
-            }
-            Console.WriteLine(new string('-', 10));
+            var owner = people.FirstOrDefault();
+            orders.Insert(
+                new Order
+                {
+                    PersonId = owner.Id,
+                    Person = owner,
+                    Products = products.ToList()
+                }
+            );
 
-            var adultPeople = people.GetAdult();
-            foreach (var person in adultPeople)
-            {
-                Console.WriteLine($"{person.Name}, {person.Age}");
-            }
-            Console.WriteLine(new string('-', 10));
-
-            people.Remove(adultPeople.ToArray());
-            
-            foreach (var person in people)
-            {
-                person.Name += " (renamed)";
-                people.Update(person);
-                Console.WriteLine($"{person.Name}, {person.Age}");
-            }                        
+            var ordersList = context.Orders.ToList();
+            //var ordersViewModels = ordersList.Select(x => x.AsViewModel()).ToList();
         }
     }
 }

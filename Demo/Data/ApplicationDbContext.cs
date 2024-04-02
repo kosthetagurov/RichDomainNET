@@ -16,8 +16,16 @@ namespace Demo.Data
 
         public DbSet<Person> People { get; set; }
         public DbSet<Product> Products { get; set; }        
+        public DbSet<Order> Orders { get; set; }
 
         #region         
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>()
+                .HasMany(x => x.Products)
+                .WithMany(x => x.Orders);
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {            

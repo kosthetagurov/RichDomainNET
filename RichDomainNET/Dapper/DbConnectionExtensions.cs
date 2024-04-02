@@ -4,6 +4,7 @@ using System.Data;
 
 namespace RichDomainNET.Dapper
 {
+    [Obsolete(error: true, message: "Unstable")]
     public static class DbConnectionExtensions
     {
         public static IEnumerable<T> RichQuery<T>(this IDbConnection dbConnection, string sql) where T : class
@@ -23,7 +24,7 @@ namespace RichDomainNET.Dapper
                 if (item is DapperRichDomainModel)
                 {
                     var convertedInstance = item as DapperRichDomainModel;
-                    convertedInstance.SetContext(dbConnection);
+                    convertedInstance.SetContext(dbConnection, null);
                     output.Add(convertedInstance);
                 }
             }

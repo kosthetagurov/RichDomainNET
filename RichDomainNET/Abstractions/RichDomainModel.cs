@@ -1,17 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Newtonsoft.Json;
+
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Text.Json.Serialization;
 
 namespace RichDomainNET.Abstractions
 {
-    public class RichDomainModel : IRichDomainModel
+    public abstract class RichDomainModel : IRichDomainModel
     {
-        [JsonIgnore]
         [NotMapped]
+        [JsonIgnore]
         public RichDomainModelContext RichDomainModelContext { get; private set; }
+        [NotMapped]
+        internal object EntityId { get; private set; }
 
-        internal void SetContext(IDbConnection connection)
+        internal void SetContext(IDbConnection connection, object entityId)
         {
+            EntityId = entityId;
             RichDomainModelContext = new RichDomainModelContext(connection.ConnectionString);
         }
     }

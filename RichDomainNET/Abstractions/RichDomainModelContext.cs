@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RichDomainNET.Abstractions
 {

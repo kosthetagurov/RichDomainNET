@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using RichDomainNET.Abstractions;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RichDomainNET.EntityFrameworkCore.Interceptors
 {
@@ -33,7 +35,15 @@ namespace RichDomainNET.EntityFrameworkCore.Interceptors
             {
                 if (entry.State == EntityState.Added && entry.Entity is RichDomainModel model)
                 {
-                    model.SetContext(eventData.Context.Database.GetDbConnection());
+                    object itemId = null;
+                    var keyPropertyName = entry.CurrentValues.Properties.Where(x => x.IsPrimaryKey()).FirstOrDefault()?.Name;
+                    if (string.IsNullOrEmpty(keyPropertyName) == false)
+                    {
+                        var jObj = JObject.FromObject(entry.Entity);
+                        itemId = jObj[keyPropertyName];
+                    }
+
+                    model.SetContext(eventData.Context.Database.GetDbConnection(), itemId);
                 }
             }
         }

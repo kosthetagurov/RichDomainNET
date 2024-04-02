@@ -1,27 +1,22 @@
 ﻿using Dapper;
 
-using RichDomainNET.Dapper;
+using Newtonsoft.Json;
 
+using RichDomainNET.Dapper;
+using RichDomainNET.EntityFrameworkCore;
+
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.SqlClient;
 
 namespace Demo.Data
 {
-    public class Product : DapperRichDomainModel
+    public class Product : EfRichDomainModel<ApplicationDbContext>
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-
-        public void Update()
-        {
-            using var connection = GetConnection(cs =>
-            {
-                return new SqlConnection(cs);
-            });
-
-            connection.Execute($"update Products set Name = '{Name}', Price = '{Price}' where Id = '{Id}'");
-        }
-
-        // ... Implement your domain logic inside domain object
+        [JsonIgnore]
+        public List<Order> Orders { get; set; }
     }
 }
